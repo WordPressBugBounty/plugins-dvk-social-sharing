@@ -3,45 +3,46 @@ Contributors: DvanKooten, ibericode
 Donate link: https://www.dannyvankooten.com/donate/
 Tags: social, social sharing, twitter, linkedin, facebook
 Requires at least: 3.7
-Tested up to: 6.5
-Stable tag: 1.3.4
+Requires PHP: 7.2
+Tested up to: 6.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds very simple social sharing buttons for Twitter, Facebook, LinkedIn and Google+ to the end of your posts.
+Adds social sharing buttons for Twitter, Facebook and LinkedIn to your blog posts or pages.
 
 == Description ==
 
 = Social Sharing By Danny =
 
-The simplest sharing links possible for Twitter, Facebook, LinkedIn and Google+.
+The simplest sharing links possible for Twitter, Facebook and LinkedIn.
 
-Most social sharing plugins are too ugly, heavy, complicated or poorly coded for my liking. This plugin aims to be better: simple, lightweight and flexible.
+Most WordPress plugins that add social sharing functionality are too ugly, heavy, complicated or poorly coded for my liking. This plugin aims to be better: simple, efficient and flexible.
 
 = No script dependencies =
 
-From itself, the buttons are actually plain text links which require <strong>NO external scripts</strong>. It makes no sense to load over 50 kilobytes of scripts and styles for a functionality 95% of your users will not use.
+From itself, the buttons are actually plain text links which require <strong>no external scripts</strong>. It makes no sense to load over 50 kilobytes of scripts and styles for a functionality 95% of your users will not use.
 
-= Simple yet pretty & user-friendly  =
+= Simple, yet pretty and user-friendly  =
 
-You can have the plugin load two very small files to add icons and a pop-up functionality to the sharing links. This way, users do not have to leave your website after clicking a sharing option. Loading of both files can be disabled so you can craft your own styles.
+You can have the plugin load two very small files to add icons and a pop-up functionality to the sharing links. This way, users do not have to leave your website after clicking a sharing option. Both files are optional and you are free to craft your own styles.
 
-**Plugin Features**
+**Features**
 
-- Sharing links for Twitter, Facebook, LinkedIn and Google+
+- Sharing links for Twitter, Facebook and LinkedIn
 - Simple icon styles with a hover effect
-- Simple script of just 600 bytes (not jQuery dependent) which will make the links open in a pop-up window.
+- Simple script of just 426 bytes (with no additional dependencies) which will make the various sharing links open in a pop-up window.
 - A shortcode and a template function to display the buttons anywhere you want.
-- An overridable filter to set the condition for when to display the sharing links.
+- An overridable filter to customize when and where to display the sharing links.
 - Translation ready
 
 **Translations**
 
 Is the plugin not translated into your language? You can [contribute your translations using the translation editor here on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/dvk-social-sharing/).
 
-**Other plugins by the same author**
+**About the author**
 
-Check out other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/) by the same author
+Danny van Kooten has been developing plugins for WordPress since version 3.0, all the way back in 2010. You can read more about him on [his personal website](https://www.dannyvankooten.com/) or check out his other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/).
 
 
 == Frequently Asked Questions ==
@@ -129,6 +130,15 @@ Have a look at the [frequently asked questions](https://wordpress.org/plugins/dv
 == Changelog ==
 
 
+#### 1.3.7 - Oct 1, 2024
+
+- Remove Google Plus as an option, since it has long been shut down.
+- Add `defer` attribute to pop-up script tag.
+- Improved sanitization of settings.
+- Disallow the use of `<a>` elements in the `before_text` setting if user lacks `unfiltered_html` capability.
+- Get rid of ES6 code in JavaScript files, to support older browsers.
+
+
 #### 1.3.4 - Dec 23, 2022
 
 - Rewrite admin JavaScript to no longer require jQuery.
@@ -174,13 +184,13 @@ Misc. textual improvements.
 - Added Italian translations, thanks to Alessandro Guidi.
 
 
-#### 1.2.6 - March 29, 2016 
+#### 1.2.6 - March 29, 2016
 
 **Fixes**
 
 - Apostrophes in titles not properly escaped in sharing URL's. Thanks Robin Aldenhoven!
 
-#### 1.2.5 - January 26, 2015 
+#### 1.2.5 - January 26, 2015
 
 **Improvements**
 
@@ -191,27 +201,27 @@ Misc. textual improvements.
 - Added Finnish (fi_FI) translations, thanks to [Ari-Pekka Koponen](http://versi.fi/)
 
 
-#### 1.2.4 - November 17, 2014 
+#### 1.2.4 - November 17, 2014
 
 **Improvements**
 
 - Wrapped link text in element so it can be hidden using CSS
 - Improvements to pop-up JavaScript
 
-#### 1.2.3 - September 4, 2014 
+#### 1.2.3 - September 4, 2014
 
 **Improvements**
 
 - Added minified scripts and option to load minified version
 - Some textual improvements
 
-#### 1.2.2 - April 30, 2014 
+#### 1.2.2 - April 30, 2014
 
 **Fixes**
 
 - Fixed not being able to save all "auto add to .." checkboxes unchecked
 
-#### 1.2.1 - April 29, 2014 
+#### 1.2.1 - April 29, 2014
 **Additions**
 
 - Added German translations, thanks Andreas Kuhl!
@@ -221,7 +231,7 @@ Misc. textual improvements.
 - Wrapped non-translatable strings in translation calls.
 - Updated Dutch translations
 
-#### 1.2 - March 19, 2014 
+#### 1.2 - March 19, 2014
 **Additions**
 
 - Added option to automatically add sharing options to all registered post types
@@ -231,43 +241,43 @@ Misc. textual improvements.
 
 - Disabled Pop-up JS by default until we figure out a cross-browser compatibility fix.
 
-#### 1.1 - February 19, 2014 
+#### 1.1 - February 19, 2014
 - Added: Slovenian translations, thanks to [Domen Hrabar, Viking Marketing](http://www.vikingmarketing.si/)
 - Improved: direct file access security
 
 
-#### 1.0.9 - December 30, 2013 
+#### 1.0.9 - December 30, 2013
 - Added: Danish translation, thanks to [Finn Hoelgaard](http://fhn.dk/)!
 - Added: Russian translation, thanks to Nikita!
 - Improved: Pop-up script now waits for full page load.
 
-#### 1.0.6 - December 20, 2013 
+#### 1.0.6 - December 20, 2013
 - Improved: Pop-up JS now used addEventListener to enable multiple event listeners (like a Google Analytics plugin) attaching to the sharing links.
 
-#### 1.0.5 - December 9, 2013 
+#### 1.0.5 - December 9, 2013
 - Added: French translations, thanks to [Said](http://www.ninapeople.com/)
 - Improved: All backend strings are now translatable
 - Improved: Prevented direct access or search engine indexing of plugin files
 - Improved: Facebook URL sharing parameters
 
-#### 1.0.4 - December 2, 2013 
+#### 1.0.4 - December 2, 2013
 - Improved: Minified pop-up script to 480 bytes.
 - Improved: Removed image attribute from Facebook Share URL. FB will now pick up `og:image` meta tags.
 
-#### 1.0.3 - November 25, 2013 
+#### 1.0.3 - November 25, 2013
 - Fixed: undefined index notice when saving options.
 
-#### 1.0.2 - November 20, 2013 
+#### 1.0.2 - November 20, 2013
 
 - Added: Dutch translation
 - Added: Option to change the text that shows before the sharing links.
 
-#### 1.0.1 - November 20, 2013 
+#### 1.0.1 - November 20, 2013
 
 - Fixed: Added settings link to plugins overview page
 - Fixed: "tweet about" option in admin now tweets about the correct plugin.
 
-#### 1.0 - November 17, 2013 
+#### 1.0 - November 17, 2013
 
 - Initial release.
 

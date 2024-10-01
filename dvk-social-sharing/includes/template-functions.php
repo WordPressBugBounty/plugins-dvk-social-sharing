@@ -14,10 +14,9 @@ function dvk_social_sharing( $args = array() ) {
 		'social_options' => join( ', ', $opts['social_options'] ),
         'twitter_username' => $opts['twitter_username'],
         'before_text' => $opts['before_text'],
-        'linkedin_text' => __( 'on LinkedIn', 'dvk-social-sharing' ),
-        'twitter_text' => __( 'on Twitter', 'dvk-social-sharing' ),
-        'facebook_text' => __( 'on Facebook', 'dvk-social-sharing' ),
-        'googleplus_text' => __( 'on Google+', 'dvk-social-sharing' ),
+        'linkedin_text' => esc_html__( 'on LinkedIn', 'dvk-social-sharing' ),
+        'twitter_text' => esc_html__( 'on Twitter', 'dvk-social-sharing' ),
+        'facebook_text' => esc_html__( 'on Facebook', 'dvk-social-sharing' ),
 		'icon_size' => $opts['icon_size'],
 	);
 
@@ -28,49 +27,46 @@ function dvk_social_sharing( $args = array() ) {
 	$title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
 	$url = urlencode( get_permalink() );
 
-	ob_start();
-	?>
-	<!-- Social Sharing by Danny - v<?php echo DVKSS_VERSION; ?> - https://wordpress.org/plugins/dvk-social-sharing/ -->
-	<?php echo sprintf( '<%s class="dvk-social-sharing ss-icon-size-%d">', $args['element'], absint( $args['icon_size'] ) ); ?>
 
-        <?php if( ! empty( $args['before_text'] ) ) { ?>
-			<span class="ss-ask"><?php echo $args['before_text']; ?></span>
-		<?php } ?>
+    $element = in_array($args['element'], array('p', 'div', 'span'), true) ? $args['element'] : 'p';
+    $icon_size = absint($args['icon_size']);
 
-        <?php foreach($args['social_options'] as $o) {
-        	switch($o) {
-				case 'twitter':
-        			?><a rel="external nofollow" class="ss-twitter" href="https://twitter.com/intent/tweet/?text=<?php echo $title; ?>&url=<?php echo $url; ?><?php if( ! empty( $args['twitter_username'] ) ) {  echo '&via=' . sanitize_text_field( $args['twitter_username'] ); } ?>" target="_blank">
-					<span class="ss-icon ss-icon-twitter"></span>
-					<span class="ss-text"><?php echo $args['twitter_text']; ?></span>
-					</a> <?php
-        		break;
+    // start building output string
+    ob_start();
+    echo "<!-- Social Sharing by Danny - v", DVKSS_VERSION, " - https://wordpress.org/plugins/dvk-social-sharing/ -->";
+    echo "<{$element} class=\"dvk-social-sharing ss-icon-size-{$icon_size}\">";
 
-        		case 'facebook':
-        			?><a rel="external nofollow" class="ss-facebook" href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $url; ?>&p[title]=<?php echo $title; ?>" target="_blank" >
-						<span class="ss-icon ss-icon-facebook"></span>
-						<span class="ss-text"><?php echo $args['facebook_text']; ?></span>
-					</a> <?php
-        		break;
+    if( ! empty( $args['before_text'] ) ) {
+		?><span class="ss-ask"><?php echo $args['before_text']; ?></span><?php
+	}
 
-        		case 'googleplus':
-        			?><a rel="external nofollow" class="ss-googleplus" href="https://plus.google.com/share?url=<?php echo $url; ?>" target="_blank" >
-						<span class="ss-icon ss-icon-googleplus"></span>
-						<span class="ss-text"><?php echo $args['googleplus_text']; ?></span>
-					</a> <?php
-        		break;
+    foreach($args['social_options'] as $o) {
+    	switch($o) {
+			case 'twitter':
+    			?><a rel="external nofollow" class="ss-twitter" href="https://twitter.com/intent/tweet/?text=<?php echo $title; ?>&url=<?php echo $url; ?><?php if( ! empty( $args['twitter_username'] ) ) {  echo '&via=' . sanitize_text_field( $args['twitter_username'] ); } ?>" target="_blank">
+				<span class="ss-icon ss-icon-twitter"></span>
+				<span class="ss-text"><?php echo esc_html($args['twitter_text']); ?></span>
+				</a> <?php
+    		break;
 
-                case 'linkedin':
-        			?><a rel="external nofollow" class="ss-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>" target="_blank" >
-                    <span class="ss-icon ss-icon-linkedin"></span>
-                    <span class="ss-text"><?php echo $args['linkedin_text']; ?></span>
-                    </a> <?php
-                break;
-        	}
-        } ?>
-    </<?php echo $args['element']; ?>>
-    <!-- / Social Sharing By Danny -->
-   <?php
+    		case 'facebook':
+    			?><a rel="external nofollow" class="ss-facebook" href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo $url; ?>&p[title]=<?php echo $title; ?>" target="_blank" >
+					<span class="ss-icon ss-icon-facebook"></span>
+					<span class="ss-text"><?php echo esc_html($args['facebook_text']); ?></span>
+				</a> <?php
+    		break;
+
+            case 'linkedin':
+    			?><a rel="external nofollow" class="ss-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>" target="_blank" >
+                <span class="ss-icon ss-icon-linkedin"></span>
+                <span class="ss-text"><?php echo esc_html($args['linkedin_text']); ?></span>
+                </a> <?php
+            break;
+    	}
+    }
+
+    echo "</{$element}>";
+    echo "<!-- / Social Sharing By Danny -->";
   	$output = ob_get_contents();
 	ob_end_clean();
 
