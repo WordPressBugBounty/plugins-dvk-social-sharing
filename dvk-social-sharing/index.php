@@ -1,14 +1,15 @@
 <?php
 /*
 Plugin Name: Social Sharing (by Danny)
-Version: 1.3.7
+Version: 1.3.8
 Plugin URI: https://dannyvankooten.com/wordpress-plugins/
 Description: Adds super lightweight (no scripts) social share buttons to your posts.
 Author: ibericode
 Author URI: https://dannyvankooten.com/
 Text Domain: dvk-social-sharing
 Domain Path: /languages/
-License: GPL v3
+License: GPL-3.0-or-later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Social Sharing By Danny Plugin
 Copyright (C) 2013-2024 Danny van Kooten, hi@dannyvankooten.com
@@ -29,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined('ABSPATH') or exit;
 
-define('DVKSS_VERSION', '1.3.7');
+define('DVKSS_VERSION', '1.3.8');
 define('DVKSS_PLUGIN_DIR', __DIR__);
 
 require DVKSS_PLUGIN_DIR . '/includes/functions.php';

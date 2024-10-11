@@ -1,6 +1,11 @@
 Changelog
 ===================
 
+#### 1.3.8 - Oct 11, 2024
+
+- Escape shortcode arguments before outputting to prevent stored XSS from users with `edit_post` capability. Thanks to [Peter Thaleikis](https://peterthaleikis.com/) for the responsible disclosure.
+
+
 #### 1.3.7 - Oct 1, 2024
 
 - Remove Google Plus as an option, since it has long been shut down.

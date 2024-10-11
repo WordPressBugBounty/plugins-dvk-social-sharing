@@ -9,41 +9,47 @@
 function dvk_social_sharing( $args = array() ) {
 
     $opts = dvkss_get_options();
+
+    // parse function and/or shortcode arguments
 	$defaults = array(
 		'element' => 'p',
-		'social_options' => join( ', ', $opts['social_options'] ),
+		'social_options' => join(',', $opts['social_options']),
         'twitter_username' => $opts['twitter_username'],
         'before_text' => $opts['before_text'],
-        'linkedin_text' => esc_html__( 'on LinkedIn', 'dvk-social-sharing' ),
-        'twitter_text' => esc_html__( 'on Twitter', 'dvk-social-sharing' ),
-        'facebook_text' => esc_html__( 'on Facebook', 'dvk-social-sharing' ),
+        'linkedin_text' => __( 'on LinkedIn', 'dvk-social-sharing' ),
+        'twitter_text' => __( 'on Twitter', 'dvk-social-sharing' ),
+        'facebook_text' => __( 'on Facebook', 'dvk-social-sharing' ),
 		'icon_size' => $opts['icon_size'],
 	);
+	$args = wp_parse_args($args, $defaults);
 
-	// create final arguments array
-	$args = wp_parse_args( $args, $defaults );
-	$args['social_options'] = array_filter( array_map( 'trim', explode( ',', $args['social_options'] ) ) );
-
-	$title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
-	$url = urlencode( get_permalink() );
-
-
+    // sanitize arguments
     $element = in_array($args['element'], array('p', 'div', 'span'), true) ? $args['element'] : 'p';
     $icon_size = absint($args['icon_size']);
+    $social_options = array();
+    foreach (explode(',', $args['social_options']) as $o) {
+        $o = trim($o);
+        if ($o !== '') {
+            $social_options[] = $o;
+        }
+    }
+
+	$title = urlencode(html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8'));
+	$url = urlencode(get_permalink());
 
     // start building output string
     ob_start();
     echo "<!-- Social Sharing by Danny - v", DVKSS_VERSION, " - https://wordpress.org/plugins/dvk-social-sharing/ -->";
     echo "<{$element} class=\"dvk-social-sharing ss-icon-size-{$icon_size}\">";
 
-    if( ! empty( $args['before_text'] ) ) {
-		?><span class="ss-ask"><?php echo $args['before_text']; ?></span><?php
+    if (! empty( $args['before_text'])) {
+		?><span class="ss-ask"><?php echo esc_html($args['before_text']); ?></span><?php
 	}
 
-    foreach($args['social_options'] as $o) {
-    	switch($o) {
+    foreach ($args['social_options'] as $o) {
+    	switch ($o) {
 			case 'twitter':
-    			?><a rel="external nofollow" class="ss-twitter" href="https://twitter.com/intent/tweet/?text=<?php echo $title; ?>&url=<?php echo $url; ?><?php if( ! empty( $args['twitter_username'] ) ) {  echo '&via=' . sanitize_text_field( $args['twitter_username'] ); } ?>" target="_blank">
+    			?><a rel="external nofollow" class="ss-twitter" href="https://twitter.com/intent/tweet/?text=<?php echo $title; ?>&url=<?php echo $url; ?><?php if( ! empty( $args['twitter_username'] ) ) {  echo '&via=', esc_attr($args['twitter_username']); } ?>" target="_blank">
 				<span class="ss-icon ss-icon-twitter"></span>
 				<span class="ss-text"><?php echo esc_html($args['twitter_text']); ?></span>
 				</a> <?php
