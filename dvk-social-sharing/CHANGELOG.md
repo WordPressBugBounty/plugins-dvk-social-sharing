@@ -1,6 +1,11 @@
 Changelog
 ===================
 
+#### 1.3.9 - Oct 16, 2024
+
+- Address PHP warning introduced by version 1.3.8.
+
+
 #### 1.3.8 - Oct 11, 2024
 
 - Escape shortcode arguments before outputting to prevent stored XSS from users with `edit_post` capability. Thanks to [Peter Thaleikis](https://peterthaleikis.com/) for the responsible disclosure.

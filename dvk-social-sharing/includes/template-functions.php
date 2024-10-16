@@ -46,7 +46,7 @@ function dvk_social_sharing( $args = array() ) {
 		?><span class="ss-ask"><?php echo esc_html($args['before_text']); ?></span><?php
 	}
 
-    foreach ($args['social_options'] as $o) {
+    foreach ($social_options as $o) {
     	switch ($o) {
 			case 'twitter':
     			?><a rel="external nofollow" class="ss-twitter" href="https://twitter.com/intent/tweet/?text=<?php echo $title; ?>&url=<?php echo $url; ?><?php if( ! empty( $args['twitter_username'] ) ) {  echo '&via=', esc_attr($args['twitter_username']); } ?>" target="_blank">
