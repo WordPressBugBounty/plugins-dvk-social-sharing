@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Social Sharing (by Danny)
-Version: 1.3.9
+Version: 1.3.10
 Plugin URI: https://dannyvankooten.com/wordpress-plugins/
 Description: Adds super lightweight (no scripts) social share buttons to your posts.
 Author: ibericode
@@ -12,7 +12,7 @@ License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Social Sharing By Danny Plugin
-Copyright (C) 2013-2024 Danny van Kooten, hi@dannyvankooten.com
+Copyright (C) 2013-2026 Danny van Kooten, hi@dannyvankooten.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,20 +30,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined('ABSPATH') or exit;
 
-define('DVKSS_VERSION', '1.3.9');
+define('DVKSS_VERSION', '1.3.10');
 define('DVKSS_PLUGIN_DIR', __DIR__);
 
 require DVKSS_PLUGIN_DIR . '/includes/functions.php';
 
-if( ! is_admin() ) {
+if (! is_admin()) {
     // PUBLIC SECTION
     require DVKSS_PLUGIN_DIR . '/includes/template-functions.php';
     require DVKSS_PLUGIN_DIR . '/includes/class-public.php';
-    $public = new DVKSS_Public(__FILE__);
-    $public->hook();
-} elseif( ! defined("DOING_AJAX") || ! DOING_AJAX ) {
+    (new DVKSS_Public(__FILE__))->hook();
+} elseif (! defined("DOING_AJAX") || ! DOING_AJAX) {
     // ADMIN SECTION
     require DVKSS_PLUGIN_DIR . '/includes/class-admin.php';
-    $admin = new DVKSS_Admin(__FILE__);
-    $admin->hook();
+    (new DVKSS_Admin(__FILE__))->hook();
 }

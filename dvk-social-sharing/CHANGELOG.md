@@ -1,6 +1,14 @@
 Changelog
 ===================
 
+#### 1.3.10 - Feb 13, 2026
+
+- Link to x.com instead of twitter.com
+- Ensure settings are autoloaded correctly.
+- Use short array syntax everywhere.
+- Explicitly specify number of accepted arguments for all hooks.
+
+
 #### 1.3.9 - Oct 16, 2024
 
 - Address PHP warning introduced by version 1.3.8.

@@ -1,33 +1,37 @@
 <?php
 
-class DVKSS_Admin {
+class DVKSS_Admin
+{
 
     /**
-    * @var int
-    */
-    private $code_version = 1;
+     * @var int
+     */
+    private $code_version = 2;
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     private $plugin_file;
 
     /**
      * Constructor
      * @param string $plugin_file
-    */
-    public function __construct( $plugin_file ) {
+     */
+    public function __construct($plugin_file)
+    {
         $this->plugin_file = $plugin_file;
     }
 
-    public function hook() {
-        add_action( 'admin_init', array( $this, 'on_admin_init' ) );
-        add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
-        add_filter( "plugin_action_links_dvk-social-sharing/index.php", array( $this, 'add_settings_link' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'load_css' ) );
+    public function hook()
+    {
+        add_action('admin_init', [$this, 'action_admin_init'], 10, 0);
+        add_action('admin_menu', [$this, 'action_admin_menu'], 10, 0);
+        add_action('admin_enqueue_scripts', [$this, 'action_admin_enqueue_scripts'], 10, 0);
+        add_filter('plugin_action_links_dvk-social-sharing/index.php', [$this, 'filter_plugin_action_links'], 10, 1);
     }
 
-    public function on_admin_init() {
+    public function action_admin_init()
+    {
         $this->maybe_run_upgrade_routine();
         $this->register_settings();
     }
@@ -35,56 +39,60 @@ class DVKSS_Admin {
     /**
      * Upgrade routine
      */
-    public function maybe_run_upgrade_routine() {
+    public function maybe_run_upgrade_routine()
+    {
         // only run if code version is higher than stored code version
-        $db_version = absint( get_option( 'dvkss_code_version', 0  ) );
-        if( $this->code_version <= $db_version ) {
+        $db_version = absint(get_option('dvkss_code_version', 0));
+        if ($this->code_version <= $db_version) {
             return;
         }
 
         $opts = dvkss_get_options();
 
-        if( isset( $opts['auto_add'] ) && $opts['auto_add'] ) {
+        if (isset($opts['auto_add']) && $opts['auto_add']) {
             $opts['auto_add_post_types'][] = 'post';
-            unset( $opts['auto_add'] );
+            unset($opts['auto_add']);
         }
 
-        update_option( 'dvk_social_sharing', $opts );
-        update_option( 'dvkss_code_version', $this->code_version );
+        update_option('dvk_social_sharing', $opts, true);
+        update_option('dvkss_code_version', $this->code_version, true);
     }
 
     /**
-    * Load admin scripts and stylesheets
-    */
-    public function load_css() {
-        if ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'dvkss' ) {
+     * Load admin scripts and stylesheets
+     */
+    public function action_admin_enqueue_scripts()
+    {
+        if (! isset($_GET['page']) || $_GET['page'] !== 'dvkss') {
             return;
         }
 
-        wp_enqueue_style( 'dvk-social-sharing', plugins_url( '/assets/css/admin-styles.min.css', $this->plugin_file ) );
-        wp_enqueue_script( 'dvk-social-sharing', plugins_url( 'assets/js/admin-script.min.js', $this->plugin_file ), array(), DVKSS_VERSION , true );
+        wp_enqueue_style('dvk-social-sharing', plugins_url('/assets/css/admin-styles.min.css', $this->plugin_file));
+        wp_enqueue_script('dvk-social-sharing', plugins_url('assets/js/admin-script.min.js', $this->plugin_file), [], DVKSS_VERSION, true);
     }
 
     /**
-    * Register the plugin settings
-    */
-    public function register_settings() {
-        register_setting( 'dvk_social_sharing', 'dvk_social_sharing', array($this, 'sanitize_settings') );
+     * Register the plugin settings
+     */
+    public function register_settings()
+    {
+        register_setting('dvk_social_sharing', 'dvk_social_sharing', [$this, 'sanitize_settings']);
     }
 
     /**
-    * Sanitize settings
-    *
-    * @param array $settings
-    * @return array $settings
-    */
-    public function sanitize_settings( $settings ) {
+     * Sanitize settings
+     *
+     * @param array $settings
+     * @return array $settings
+     */
+    public function sanitize_settings($settings)
+    {
         $safe_attributes = array(
-            'class' => array(),
-            'title' => array(),
-            'id' => array(),
-            'tabindex' => array(),
-            'rel' => array(),
+            'class' => [],
+            'title' => [],
+            'id' => [],
+            'tabindex' => [],
+            'rel' => [],
         );
         $allowed_html = array(
             'br' => $safe_attributes,
@@ -95,47 +103,47 @@ class DVKSS_Admin {
             'span' => $safe_attributes,
         );
         if (current_user_can('unfiltered_html')) {
-            $allowed_html['a'] = array_merge($safe_attributes, array('href' => array()));
+            $allowed_html['a'] = array_merge($safe_attributes, ['href' => []]);
         }
 
         $settings['before_text'] = wp_kses($settings['before_text'], $allowed_html);
         $settings['icon_size'] = absint(trim($settings['icon_size']));
         $settings['twitter_username'] = ltrim(trim(strip_tags($settings['twitter_username'])), "@");
-        $settings['auto_add_post_types'] = ( isset( $settings['auto_add_post_types'] ) ) ? $settings['auto_add_post_types'] : array();
-        $settings['social_options'] = ( isset( $settings['social_options'] ) ) ? $settings['social_options'] : array();
+        $settings['auto_add_post_types'] = (isset($settings['auto_add_post_types'])) ? $settings['auto_add_post_types'] : [];
+        $settings['social_options'] = (isset($settings['social_options'])) ? $settings['social_options'] : [];
 
         return $settings;
     }
 
     /**
-    * Add settings link to Plugin overview
-    *
-    * @return array $links
-    */
-    public function add_settings_link( $links ) {
-        $settings_link = '<a href="options-general.php?page=dvkss">'. esc_html__('Settings') . '</a>';
-        array_unshift( $links, $settings_link );
+     * Add settings link to Plugin overview
+     *
+     * @return array $links
+     */
+    public function filter_plugin_action_links($links)
+    {
+        $settings_link = '<a href="options-general.php?page=dvkss">' . esc_html__('Settings') . '</a>';
+        array_unshift($links, $settings_link);
 
         return $links;
     }
 
     /**
-    * Add options page to Admin menu
-    */
-    public function add_menu_item() {
-        add_options_page( 'Social Sharing', 'Social Sharing', 'manage_options', 'dvkss', array( $this, 'show_settings_page' ) );
+     * Add options page to Admin menu
+     */
+    public function action_admin_menu()
+    {
+        add_options_page('Social Sharing', 'Social Sharing', 'manage_options', 'dvkss', [$this, 'show_settings_page']);
     }
 
     /**
-    * Show the plugin settings page
-    */
-    public function show_settings_page() {
+     * Show the plugin settings page
+     */
+    public function show_settings_page()
+    {
         $opts = dvkss_get_options();
-        $post_types = get_post_types( array( 'public' => true ), 'objects' );
+        $post_types = get_post_types(['public' => true], 'objects');
 
         include DVKSS_PLUGIN_DIR . '/includes/views/settings-page.php';
     }
-
-
-
 }

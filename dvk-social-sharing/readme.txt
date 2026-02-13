@@ -4,8 +4,8 @@ Donate link: https://www.dannyvankooten.com/donate/
 Tags: social, social sharing, twitter, linkedin, facebook
 Requires at least: 3.7
 Requires PHP: 7.2
-Tested up to: 6.6
-Stable tag: 1.3.9
+Tested up to: 6.9
+Stable tag: 1.3.10
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -128,6 +128,14 @@ The texts for the different links. Defaults to the string set in the translation
 Have a look at the [frequently asked questions](https://wordpress.org/plugins/dvk-social-sharing/faq/) section for some examples of additional customization.
 
 == Changelog ==
+
+
+#### 1.3.10 - Feb 13, 2026
+
+- Link to x.com instead of twitter.com
+- Ensure settings are autoloaded correctly.
+- Use short array syntax everywhere.
+- Explicitly specify number of accepted arguments for all hooks.
 
 
 #### 1.3.9 - Oct 16, 2024
