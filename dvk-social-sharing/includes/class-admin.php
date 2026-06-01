@@ -109,8 +109,11 @@ class DVKSS_Admin
         $settings['before_text'] = wp_kses($settings['before_text'], $allowed_html);
         $settings['icon_size'] = absint(trim($settings['icon_size']));
         $settings['twitter_username'] = ltrim(trim(strip_tags($settings['twitter_username'])), "@");
-        $settings['auto_add_post_types'] = (isset($settings['auto_add_post_types'])) ? $settings['auto_add_post_types'] : [];
-        $settings['social_options'] = (isset($settings['social_options'])) ? $settings['social_options'] : [];
+        $allowed_post_types = array_keys(get_post_types(['public' => true]));
+        $settings['auto_add_post_types'] = (isset($settings['auto_add_post_types'])) ? array_intersect($settings['auto_add_post_types'], $allowed_post_types) : [];
+
+        $allowed_networks = ['twitter', 'facebook', 'linkedin'];
+        $settings['social_options'] = (isset($settings['social_options'])) ? array_intersect($settings['social_options'], $allowed_networks) : [];
 
         return $settings;
     }

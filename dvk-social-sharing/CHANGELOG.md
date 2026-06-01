@@ -1,6 +1,12 @@
 Changelog
 ===================
 
+#### 1.3.11 - Jun 1, 2026
+
+- Implement some general hardening measures.
+- Bump tested WordPress version to 7.0.
+
+
 #### 1.3.10 - Feb 13, 2026
 
 - Link to x.com instead of twitter.com
