@@ -2,11 +2,16 @@
 
 defined('DVKSS_VERSION') or exit;
 
-$networks = array(
+/**
+ * @var array $opts
+ * @var array $post_types
+ */
+
+$networks = [
     'twitter' => 'Twitter',
     'facebook' => 'Facebook',
     'linkedin' => 'LinkedIn',
-);
+];
 
 ?><div id="dvkss" class="wrap">
     <div class="dvkss-container">
@@ -17,7 +22,7 @@ $networks = array(
             <form id="dvkss_settings" method="post" action="options.php">
                 <?php settings_fields('dvk_social_sharing'); ?>
 
-                <h2><?php esc_html_e('Settings'); ?></h2>
+                <h2><?php esc_html_e('Settings', 'dvk-social-sharing'); ?></h2>
 
                 <table class="form-table">
 
@@ -40,7 +45,7 @@ $networks = array(
                                 <?php foreach ($post_types as $post_type_id => $post_type) { ?>
                                     <li>
                                         <label>
-                                            <input type="checkbox" name="dvk_social_sharing[auto_add_post_types][]" value="<?php echo esc_attr($post_type_id); ?>" <?php checked(in_array($post_type_id, $opts['auto_add_post_types']), true); ?>> <?php echo $post_type->labels->name; ?>
+                                            <input type="checkbox" name="dvk_social_sharing[auto_add_post_types][]" value="<?php echo esc_attr($post_type_id); ?>" <?php checked(in_array($post_type_id, $opts['auto_add_post_types']), true); ?>> <?php echo esc_html($post_type->labels->name); ?>
                                         </label>
                                     </li>
                                 <?php } ?>
@@ -59,7 +64,7 @@ $networks = array(
                                 <?php foreach ($networks as $network_slug => $network_name) { ?>
                                     <li>
                                         <label>
-                                            <input type="checkbox" name="dvk_social_sharing[social_options][]" value="<?php echo esc_attr($network_slug); ?>" <?php checked(in_array($network_slug, $opts['social_options']), true); ?>> <?php echo $network_name; ?>
+                                            <input type="checkbox" name="dvk_social_sharing[social_options][]" value="<?php echo esc_attr($network_slug); ?>" <?php checked(in_array($network_slug, $opts['social_options']), true); ?>> <?php echo esc_html($network_name); ?>
                                         </label>
                                     </li>
                                 <?php } ?>
@@ -74,8 +79,8 @@ $networks = array(
                             <?php esc_html_e('Load icon stylesheet?', 'dvk-social-sharing'); ?>
                         </th>
                         <td>
-                            <label><input type="radio" name="dvk_social_sharing[load_icon_css]" value="1" <?php checked($opts['load_icon_css'], 1); ?>> <?php esc_html_e('Yes'); ?></label> &nbsp;
-                            <label><input type="radio" name="dvk_social_sharing[load_icon_css]" value="0" <?php checked($opts['load_icon_css'], 0); ?>> <?php esc_html_e('No'); ?></label>
+                            <label><input type="radio" name="dvk_social_sharing[load_icon_css]" value="1" <?php checked($opts['load_icon_css'], 1); ?>> <?php esc_html_e('Yes', 'dvk-social-sharing'); ?></label> &nbsp;
+                            <label><input type="radio" name="dvk_social_sharing[load_icon_css]" value="0" <?php checked($opts['load_icon_css'], 0); ?>> <?php esc_html_e('No', 'dvk-social-sharing'); ?></label>
                             <br>
                             <p class="description"><?php esc_html_e('Adds simple but pretty icons to the sharing links.', 'dvk-social-sharing'); ?></p>
                         </td>
@@ -99,8 +104,8 @@ $networks = array(
                             <?php esc_html_e('Load pop-up JavaScript?', 'dvk-social-sharing'); ?>
                         </th>
                         <td>
-                            <label><input type="radio" name="dvk_social_sharing[load_popup_js]" value="1" <?php checked($opts['load_popup_js'], 1); ?>> <?php esc_html_e('Yes'); ?></label> &nbsp;
-                            <label><input type="radio" name="dvk_social_sharing[load_popup_js]" value="0" <?php checked($opts['load_popup_js'], 0); ?>> <?php esc_html_e('No'); ?></label>
+                            <label><input type="radio" name="dvk_social_sharing[load_popup_js]" value="1" <?php checked($opts['load_popup_js'], 1); ?>> <?php esc_html_e('Yes', 'dvk-social-sharing'); ?></label> &nbsp;
+                            <label><input type="radio" name="dvk_social_sharing[load_popup_js]" value="0" <?php checked($opts['load_popup_js'], 0); ?>> <?php esc_html_e('No', 'dvk-social-sharing'); ?></label>
                             <br>
                             <p class="description"><?php esc_html_e("A small JavaScript file of just 600 bytes so people won't have to leave your website to share.", 'dvk-social-sharing'); ?></p>
                         </td>

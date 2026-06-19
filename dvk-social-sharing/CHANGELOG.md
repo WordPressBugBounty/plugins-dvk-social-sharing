@@ -1,6 +1,19 @@
 Changelog
 ===================
 
+#### 1.3.12 - Jun 19, 2026
+
+- Bump the minimum requirements to WordPress 4.5 and PHP 7.4.
+- Build social sharing URLs using WordPress URL helpers and escape the generated output.
+- Improve escaping and text domain usage in admin and front-end templates.
+- Add Composer-based PHPCS and PHPStan tooling with GitHub Actions checks.
+- Run PHP syntax, PHPCS and PHPStan checks before creating a release package.
+- Update release package exclusions for the new development tooling.
+- Improve readme FAQ with user-facing answers about external scripts, supported networks, display options and custom CSS.
+- Improve readme screenshot captions and installation steps.
+- Remove outdated Google Plus references from the readme FAQ.
+
+
 #### 1.3.11 - Jun 1, 2026
 
 - Implement some general hardening measures.

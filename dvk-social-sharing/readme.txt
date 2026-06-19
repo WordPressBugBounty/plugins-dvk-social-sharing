@@ -2,10 +2,10 @@
 Contributors: DvanKooten, ibericode
 Donate link: https://www.dannyvankooten.com/donate/
 Tags: social, social sharing, twitter, linkedin, facebook
-Requires at least: 3.7
-Requires PHP: 7.2
+Requires at least: 4.5
+Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 1.3.11
+Stable tag: 1.3.12
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,10 +42,26 @@ Is the plugin not translated into your language? You can [contribute your transl
 
 **About the author**
 
-Danny van Kooten has been developing plugins for WordPress since version 3.0, all the way back in 2010. You can read more about him on [his personal website](https://www.dannyvankooten.com/) or check out his other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/).
-
+[Danny van Kooten](https://www.dannyvankooten.com/) has been building WordPress plugins since 2010. He is also the developer behind [Mailchimp for WordPress](https://wordpress.org/plugins/mailchimp-for-wp/) and [Koko Analytics](https://wordpress.org/
+  plugins/koko-analytics/).
 
 == Frequently Asked Questions ==
+
+= Does this plugin load external social media scripts? =
+
+No. The sharing buttons are plain links by default, so the plugin does not load external scripts from social networks.
+
+= Which social networks are supported? =
+
+The plugin supports sharing links for Twitter, Facebook and LinkedIn. You can choose which social sharing buttons to show from the plugin settings.
+
+= Can I choose where the sharing buttons appear? =
+
+Yes. By default, the sharing buttons are added to posts. You can enable them for other public post types from *Settings > Social Sharing*.
+
+= Can I use my own CSS for the sharing buttons? =
+
+Yes. You can disable the default icon stylesheet from the plugin settings and style the social sharing links in your theme.
 
 = Can I display the sharing buttons using a shortcode? =
 
@@ -96,7 +112,7 @@ The Twitter username to add to tweets. This will override the value from the set
 
 **social_options** (comma separated string)
 
-The social media buttons to show. You can also use this to change the order of the buttons. Defaults to `twitter, facebook, googleplus`, which are the only 3 possible values.
+The social media buttons to show. You can also use this to change the order of the buttons. Defaults to `twitter, facebook`. Possible values are `twitter`, `facebook` and `linkedin`.
 
 **before_text**  (string)
 
@@ -104,16 +120,15 @@ The text to show before the links. This will override the value in the settings 
 
 **twitter_text** (string)
 **facebook_text** (string)
-**googleplus_text** (string)
 **linkedin_text** (string)
 
 The texts for the different links. Defaults to the string set in the translation file.
 
 == Screenshots ==
 
-1. Simple but beautiful sharing links add the end of your posts.
-2. Disable the default plugin CSS to create your own styles.
-2. The settings page of the plugin.
+1. Simple social sharing buttons shown at the end of a WordPress post.
+2. Disable the default social sharing CSS to use your own theme styles.
+3. The Social Sharing settings page for choosing post types, networks, icons and pop-up behavior.
 
 == Installation ==
 
@@ -122,12 +137,26 @@ The texts for the different links. Defaults to the string set in the translation
 1. In your WordPress admin panel, go to *Plugins > New Plugin*, search for *Social Sharing by Danny* and click "Install now"
 1. Alternatively, download the plugin and upload the contents of `dvk-social-sharing.zip` to your plugins directory, which usually is `/wp-content/plugins/`.
 1. Activate the plugin.
+1. Go to *Settings > Social Sharing* to choose the post types, social networks, icon styles and pop-up behavior.
 
 = Additional Customization =
 
 Have a look at the [frequently asked questions](https://wordpress.org/plugins/dvk-social-sharing/faq/) section for some examples of additional customization.
 
 == Changelog ==
+
+
+#### 1.3.12 - Jun 19, 2026
+
+- Bump the minimum requirements to WordPress 4.5 and PHP 7.4.
+- Build social sharing URLs using WordPress URL helpers and escape the generated output.
+- Improve escaping and text domain usage in admin and front-end templates.
+- Add Composer-based PHPCS and PHPStan tooling with GitHub Actions checks.
+- Run PHP syntax, PHPCS and PHPStan checks before creating a release package.
+- Update release package exclusions for the new development tooling.
+- Improve readme FAQ with user-facing answers about external scripts, supported networks, display options and custom CSS.
+- Improve readme screenshot captions and installation steps.
+- Remove outdated Google Plus references from the readme FAQ.
 
 
 #### 1.3.11 - Jun 1, 2026

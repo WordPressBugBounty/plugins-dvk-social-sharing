@@ -6,13 +6,13 @@
  * @param array $args
  * @return string
  */
-function dvk_social_sharing($args = array())
+function dvk_social_sharing($args = [])
 {
 
     $opts = dvkss_get_options();
 
     // parse function and/or shortcode arguments
-    $defaults = array(
+    $defaults = [
         'element' => 'p',
         'social_options' => join(',', $opts['social_options']),
         'twitter_username' => $opts['twitter_username'],
@@ -21,15 +21,43 @@ function dvk_social_sharing($args = array())
         'twitter_text' => __('on Twitter', 'dvk-social-sharing'),
         'facebook_text' => __('on Facebook', 'dvk-social-sharing'),
         'icon_size' => $opts['icon_size'],
-    );
+    ];
     $args = wp_parse_args($args, $defaults);
 
     // sanitize arguments
     $element = in_array($args['element'], ['p', 'div', 'span'], true) ? $args['element'] : 'p';
     $icon_size = abs((int) $args['icon_size']);
     $social_options = array_filter(array_map('trim', explode(',', $args['social_options'])));
-    $title = urlencode(html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8'));
-    $url = urlencode(get_permalink());
+    $title = html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8');
+    $url = get_permalink();
+    $twitter_url_args = [
+        'text' => $title,
+        'url' => $url,
+    ];
+
+    if (! empty($args['twitter_username'])) {
+        $twitter_url_args['via'] = ltrim($args['twitter_username'], '@');
+    }
+
+    $share_urls = [
+        'twitter' => add_query_arg($twitter_url_args, 'https://x.com/intent/post'),
+        'facebook' => add_query_arg(
+            [
+                's' => 100,
+                'p[url]' => $url,
+                'p[title]' => $title,
+            ],
+            'https://www.facebook.com/sharer/sharer.php'
+        ),
+        'linkedin' => add_query_arg(
+            [
+                'mini' => 'true',
+                'url' => $url,
+                'title' => $title,
+            ],
+            'https://www.linkedin.com/shareArticle'
+        ),
+    ];
 
     // start building output string
     ob_start();

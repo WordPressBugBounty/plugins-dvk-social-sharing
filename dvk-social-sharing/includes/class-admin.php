@@ -2,7 +2,6 @@
 
 class DVKSS_Admin
 {
-
     /**
      * @var int
      */
@@ -87,21 +86,21 @@ class DVKSS_Admin
      */
     public function sanitize_settings($settings)
     {
-        $safe_attributes = array(
+        $safe_attributes = [
             'class' => [],
             'title' => [],
             'id' => [],
             'tabindex' => [],
             'rel' => [],
-        );
-        $allowed_html = array(
+        ];
+        $allowed_html = [
             'br' => $safe_attributes,
             'strong' => $safe_attributes,
             'i' => $safe_attributes,
             'em' => $safe_attributes,
             'b' => $safe_attributes,
             'span' => $safe_attributes,
-        );
+        ];
         if (current_user_can('unfiltered_html')) {
             $allowed_html['a'] = array_merge($safe_attributes, ['href' => []]);
         }
@@ -125,7 +124,7 @@ class DVKSS_Admin
      */
     public function filter_plugin_action_links($links)
     {
-        $settings_link = '<a href="options-general.php?page=dvkss">' . esc_html__('Settings') . '</a>';
+        $settings_link = '<a href="options-general.php?page=dvkss">' . esc_html__('Settings', 'dvk-social-sharing') . '</a>';
         array_unshift($links, $settings_link);
 
         return $links;

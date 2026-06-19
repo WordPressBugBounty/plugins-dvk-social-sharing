@@ -2,13 +2,15 @@
 
 class DVKSS_Public
 {
-
+    /**
+     * @var string
+     */
     private $plugin_file;
 
     /**
      * Constructor
      *
-     * @param $plugin_file
+     * @param string $plugin_file
      */
     public function __construct($plugin_file)
     {

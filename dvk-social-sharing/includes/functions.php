@@ -11,15 +11,15 @@ function dvkss_get_options()
     // load options from database
     if (! $options) {
         // default options
-        $defaults = array(
+        $defaults = [
             'load_icon_css' => 1,
             'load_popup_js' => 0,
             'icon_size' => 32,
             'twitter_username' => '',
-            'auto_add_post_types' => array('post'),
+            'auto_add_post_types' => ['post'],
             'before_text' => "Share this post: ",
-            'social_options' => array('twitter', 'facebook'),
-        );
+            'social_options' => ['twitter', 'facebook'],
+        ];
 
         // get options from db
         $options = get_option('dvk_social_sharing', []);

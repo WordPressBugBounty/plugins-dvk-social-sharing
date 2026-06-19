@@ -1,7 +1,17 @@
-<?php defined('DVKSS_VERSION') or exit; ?>
+<?php
 
-<!-- Social Sharing by Danny - v<?= DVKSS_VERSION ?> - https://wordpress.org/plugins/dvk-social-sharing/ -->
-<<?= $element ?> class="dvk-social-sharing ss-icon-size-<?= $icon_size ?>">
+defined('DVKSS_VERSION') or exit;
+
+/**
+ * @var string $element
+ * @var string $icon_size
+ * @var array $social_options
+ * @var array $share_urls
+ */
+?>
+
+<!-- Social Sharing by Danny - v<?php echo esc_html(DVKSS_VERSION); ?> - https://wordpress.org/plugins/dvk-social-sharing/ -->
+<<?php echo tag_escape($element); ?> class="dvk-social-sharing ss-icon-size-<?php echo esc_attr($icon_size); ?>">
     <?php if (! empty($args['before_text'])) : ?>
     <span class="ss-ask"><?php echo wp_kses($args['before_text'], [
         'br' => [],
@@ -17,5 +27,5 @@
     <?php foreach ($social_options as $o) : ?>
         <?php include __DIR__ . '/link-' . basename($o) . '.html.php'; ?>
     <?php endforeach; ?>
-</<?=$element?>>
+</<?php echo tag_escape($element); ?>>
 <!-- / Social Sharing By Danny -->
